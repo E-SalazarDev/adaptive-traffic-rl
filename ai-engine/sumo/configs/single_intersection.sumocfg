@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <input>
+        <net-file value="../networks/single_intersection.net.xml"/>
+        <route-files value="../routes/single_intersection.rou.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="600"/>
+        <step-length value="1"/>
+    </time>
+
+    <output>
+        <tripinfo-output value="../outputs/tripinfo.xml"/>
+        <summary-output value="../outputs/summary.xml"/>
+    </output>
+</configuration>

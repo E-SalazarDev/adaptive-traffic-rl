@@ -1,0 +1,8 @@
+numpy
+pandas
+gymnasium
+stable-baselines3
+traci
+sumolib
+pytest
+python-dotenv
