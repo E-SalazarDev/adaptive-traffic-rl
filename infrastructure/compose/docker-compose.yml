@@ -1,0 +1,12 @@
+services:
+  ai-engine:
+    build:
+      context: ../../ai-engine
+      dockerfile: Dockerfile
+    container_name: adaptive-traffic-ai-engine
+    working_dir: /app
+    volumes:
+      - ../../ai-engine:/app
+    environment:
+      - PYTHONPATH=/app
+    command: python3 -m src.main
