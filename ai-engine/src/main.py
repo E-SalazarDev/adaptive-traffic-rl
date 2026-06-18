@@ -10,8 +10,15 @@ from src.config.settings import (
 )
 
 from src.simulation.scenario_generator import create_scenario
-from src.simulation.sumo_runner import run_sumo_simulation
-
+from src.simulation.sumo_runner import (
+    run_sumo_simulation,
+    run_traci_timeline_simulation,
+)
+from src.simulation.traffic_metrics import collect_sumo_metrics
+from src.config.settings import SUMO_OUTPUTS_DIR
+from src.simulation.sumo_runner import run_traci_timeline_simulation
+from src.utils.json_exporter import export_json
+from src.agents.fixed_controller import run_fixed_baseline
 
 def check_python_version() -> None:
     print("\n[1] Verificando Python...")
@@ -100,10 +107,31 @@ def main() -> None:
     print_project_paths()
 
     generate_and_run_sumo_scenario()
+    print("\n[7] Leyendo métricas de SUMO...")
+    metrics = collect_sumo_metrics()
+
+    for key, value in metrics.items():
+        print(f"{key}: {value}")
 
     print("\nResultado:")
     print("Escenario SUMO generado y ejecutado correctamente.")
     print("Se crearon tripinfo.xml y summary.xml")
+    
+    print("\n[8] Ejecutando simulación con TraCI")
+    timeline = run_traci_timeline_simulation(max_steps=600)
+
+    timeline_path = SUMO_OUTPUTS_DIR / "timeline_fixed_baseline.json"
+    export_json(timeline, timeline_path)
+
+    print(f"[OK] Timeline exportado: {timeline_path}")
+    print(f"[OK] Timesteps registrados: {len(timeline)}")
+    
+    print("\n[9] Ejecutando baseline de semáforo fijo...")
+    fixed_result = run_fixed_baseline(max_steps=600)
+
+    print("\nMétricas baseline fijo:")
+    for key, value in fixed_result["metrics"].items():
+        print(f"{key}: {value}")
 
 
 if __name__ == "__main__":
