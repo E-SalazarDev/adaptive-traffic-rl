@@ -21,7 +21,7 @@ def create_network_file() -> Path:
         "--grid",
         "--grid.number", "3",
         "--grid.length", "200",
-        "--tls.guess",
+        "--tls.set", "B1",
         "--output-file", str(network_file),
     ]
 
@@ -48,10 +48,10 @@ def create_routes_file() -> Path:
     <route id="west_to_east" edges="A1B1 B1C1"/>
     <route id="east_to_west" edges="C1B1 B1A1"/>
 
-    <flow id="flow_north_south" type="car" route="north_to_south" begin="0" end="600" vehsPerHour="300"/>
-    <flow id="flow_south_north" type="car" route="south_to_north" begin="0" end="600" vehsPerHour="300"/>
-    <flow id="flow_west_east" type="car" route="west_to_east" begin="0" end="600" vehsPerHour="200"/>
-    <flow id="flow_east_west" type="car" route="east_to_west" begin="0" end="600" vehsPerHour="200"/>
+    <flow id="flow_north_south" type="car" route="north_to_south" begin="0" end="600" vehsPerHour="1200"/>
+    <flow id="flow_south_north" type="car" route="south_to_north" begin="0" end="600" vehsPerHour="1200"/>
+    <flow id="flow_west_east" type="car" route="west_to_east" begin="0" end="600" vehsPerHour="800"/>
+    <flow id="flow_east_west" type="car" route="east_to_west" begin="0" end="600" vehsPerHour="800"/>
 </routes>
 """
 
